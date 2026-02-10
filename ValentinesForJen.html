@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Valentine's Day Card</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --decor-size: 200px;
+      --decor-size-sm: 48px;
+      
+      --video-size: 200px;
+      --video-size-sm: 120px;
+      --video1-left: 3%;
+      --video1-top: 8%;
+      --video2-left: 29%;
+      --video2-top: 3%;
+      --video3-right: 32%;
+      --video3-top: 3%;
+      --video4-left: 18%;
+      --video4-bottom: 8%;
+      --video5-left: 43%;
+      --video5-bottom: 1%;
+      --video6-right: 18%;
+      --video6-bottom: 8%;
+      --video7-right: 3%;
+      --video7-top: 8%;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffe0f0;
+      text-align: center;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    h1, button {
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+    }
+
+    h1 {
+      color: red;
+      margin: 20px;
+      font-family: 'Great Vibes', cursive;
+      font-size: 64px;
+      position: relative;
+      z-index: 20;
+    }
+
+    .buttons {
+      margin: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+      z-index: 20;
+    }
+
+    button {
+      padding: 10px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 22px;
+      cursor: pointer;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .yes {
+      background-color: #4CAF50;
+      color: white;
+      z-index: 20;
+      transform-origin: center;
+    }
+
+    .no {
+      background-color: #f44336;
+      color: white;
+      z-index: 20;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      transition: margin-left 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.6s ease;
+    }
+
+    
+    .heart {
+      position: absolute;
+      color: red;
+      animation: float 6s linear forwards;
+      z-index: 5;
+      user-select: none;
+    }
+
+    @keyframes float {
+      0% { opacity: 1; }
+      100% { transform: translate(var(--x), var(--y)) rotate(360deg); opacity: 0; }
+    }
+
+    .please {
+      position: absolute;
+      display: flex;
+      gap: 2px;
+      font-weight: bold;
+      animation: drift 8s linear forwards;
+      z-index: 5;
+      user-select: none;
+    }
+
+    @keyframes drift {
+      0% { opacity: 1; }
+      100% { transform: translate(var(--x), var(--y)); opacity: 0; }
+    }
+
+    
+    @keyframes fall {
+      0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    
+    @keyframes explode {
+      0% { transform: translate(0, 0) scale(1); opacity: 1; }
+      100% { transform: translate(var(--explode-x), var(--explode-y)) scale(0.5); opacity: 0; }
+    }
+
+    .falling-heart {
+      position: fixed;
+      font-size: 50px;
+      animation: explode .3s ease-out forwards;
+      z-index: 50;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    
+    .celebration {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffe0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 40;
+      flex-direction: column;
+    }
+
+    .celebration-text {
+      font-family: 'Great Vibes', cursive;
+      font-size: 72px;
+      color: red;
+      text-align: center;
+      z-index: 41;
+      user-select: none;
+    }
+
+    
+    @keyframes ghostFade {
+      0% { opacity: 0; transform: translateY(6px) rotate(0deg) scale(0.94); }
+      18% { opacity: 1; transform: translateY(0) rotate(-4deg) scale(1); }
+      82% { opacity: 1; transform: translateY(0) rotate(-4deg) scale(1); }
+      100% { opacity: 0; transform: translateY(-6px) rotate(0deg) scale(0.94); }
+    }
+
+    
+    .decor {
+      position: absolute;
+      width: var(--decor-size);
+      height: auto;
+      pointer-events: none;
+      z-index: 10;
+      animation: ghostFade 6s ease-in-out infinite;
+      transform-origin: center;
+      opacity: 0;
+      filter: drop-shadow(0 6px 8px rgba(0,0,0,0.08));
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -webkit-touch-callout: none;
+      -webkit-user-drag: none;
+    }
+
+    
+
+    
+    .pic1 {
+      left: 13%;
+      top: 8%;
+      animation-delay: 0s;
+    }
+    .pic2 {
+      left: 43%;
+      top: 6%;
+      transform: translateX(-50%);
+      animation-delay: 1s;
+    }
+    .pic3 {
+      right: 13%;
+      top: 8%;
+      animation-delay: 2s;
+    }
+
+    
+    .pic4 {
+      left: 13%;
+      bottom: 8%;
+      animation-delay: 3s;
+    }
+    .pic5 {
+      left: 43%;
+      bottom: 6%;
+      transform: translateX(-50%);
+      animation-delay: 4s;
+    }
+    .pic6 {
+      right: 13%;
+      bottom: 8%;
+      animation-delay: 5s;
+    }
+
+    
+    @media (max-width: 720px) {
+      :root { --decor-size: 150px; }
+      .pic1, .pic3, .pic4, .pic6 { left: 6%; right: 6%; }
+      .pic2 { top: 5%; }
+      .pic5 { bottom: 5%; }
+    }
+
+    @media (max-width: 420px) {
+      :root { --decor-size: var(--decor-size-sm); }
+      .pic1 { left: 6%; top: 6%; }
+      .pic2 { top: 4%; }
+      .pic3 { right: 6%; top: 6%; }
+      .pic4 { left: 6%; bottom: 6%; }
+      .pic5 { bottom: 4%; }
+      .pic6 { right: 6%; bottom: 6%; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Will you be my Valentine?</h1>
+
+  <div class="buttons">
+    <button class="yes">Yes</button>
+    <button class="no">No</button>
+  </div>
+
+  <img src="FOR.png" alt="FOR" class="decor pic1">
+  <img src="MY.png" alt="MY" class="decor pic2">
+  <img src="BELOVED.png" alt="BELOVED" class="decor pic3">
+  <img src="SUNSHINE.png" alt="SUNSHINE" class="decor pic4">
+  <img src="JENE.png" alt="JENE" class="decor pic5">
+  <img src="LEE.png" alt="LEE" class="decor pic6">
+
+  <script>
+    const fonts = ["Arial", "Courier New", "Georgia", "Comic Sans MS", "Times New Roman"];
+    const colors = ["red", "pink", "purple"];
+
+    const videoFiles = [
+      "111.mp4",
+      "112.mp4",
+      "12.mp4",
+      "16.mp4",
+      "14.mp4",
+      "15.mp4",
+      "17.mp4"
+    ];
+
+    let noClicks = 0;
+    const yesButton = document.querySelector(".yes");
+    const noButton = document.querySelector(".no");
+    let isFinalYes = false;
+    
+    const noMessages = [
+      "No",
+      "Did you even think about it?",
+      "please baby",
+      "Click Yes bae :<",
+      "You love me right?",
+      "So select Yes bae",
+      "I beg of you",
+      "Well.. I've got no choice",
+      "Yes or YES"
+    ];
+
+    yesButton.addEventListener("click", (e) => {
+      if (isFinalYes) return;
+      
+      e.stopPropagation();
+      
+      const rect = yesButton.getBoundingClientRect();
+      let newX = Math.random() * (window.innerWidth - rect.width);
+      let newY = Math.random() * (window.innerHeight - rect.height);
+      
+      newX = Math.max(0, Math.min(newX, window.innerWidth - rect.width));
+      newY = Math.max(0, Math.min(newY, window.innerHeight - rect.height));
+      
+      yesButton.style.transition = "none";
+      yesButton.style.position = "fixed";
+      yesButton.style.left = newX + "px";
+      yesButton.style.top = newY + "px";
+      
+      setTimeout(() => {
+        yesButton.style.transition = "all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)";
+      }, 10);
+    });
+
+    noButton.addEventListener("click", () => {
+      if (noClicks < 9) {
+        noButton.textContent = noMessages[noClicks + 1];
+        noClicks++;
+        
+        const scaleFactor = 1 + (noClicks / 10) * 9;
+        yesButton.style.transform = `scale(${scaleFactor})`;
+        noButton.style.marginLeft = `${scaleFactor * 40}px`;
+        noButton.style.boxShadow = `0 0 ${scaleFactor * 5}px rgba(0,0,0,0.3)`;
+
+        if (noClicks === 9) {
+          isFinalYes = true;
+          yesButton.style.position = "fixed";
+          yesButton.style.top = "0";
+          yesButton.style.left = "0";
+          yesButton.style.width = "100vw";
+          yesButton.style.height = "100vh";
+          yesButton.style.fontSize = "10vw";
+          yesButton.style.borderRadius = "0";
+          yesButton.style.zIndex = "30";
+          yesButton.style.transform = "none";
+          noButton.style.display = "none";
+          
+          yesButton.addEventListener("click", startCelebration);
+        }
+      }
+    });
+
+    function startCelebration() {
+      
+      const celebration = document.createElement("div");
+      celebration.classList.add("celebration");
+
+      
+      const rootStyles = getComputedStyle(document.documentElement);
+      for (let i = 1; i <= 7; i++) {
+        const vid = document.createElement("video");
+        vid.classList.add("decor", "video", `pic${i}`);
+        vid.src = videoFiles[i-1] || `video${i}.mp4`;
+        vid.autoplay = true;
+        vid.loop = true;
+        vid.muted = true;
+        vid.playsInline = true;
+        vid.style.objectFit = "contain";
+        vid.style.pointerEvents = "none";
+        vid.style.zIndex = "39"; 
+
+        
+        const leftVar = rootStyles.getPropertyValue(`--video${i}-left`).trim();
+        const rightVar = rootStyles.getPropertyValue(`--video${i}-right`).trim();
+        const topVar = rootStyles.getPropertyValue(`--video${i}-top`).trim();
+        const bottomVar = rootStyles.getPropertyValue(`--video${i}-bottom`).trim();
+        const sizeVar = rootStyles.getPropertyValue(`--video-size`).trim();
+
+        if (sizeVar) {
+          vid.style.width = sizeVar;
+        }
+        if (leftVar) vid.style.left = leftVar;
+        if (rightVar) vid.style.right = rightVar;
+        if (topVar) vid.style.top = topVar;
+        if (bottomVar) vid.style.bottom = bottomVar;
+
+        celebration.appendChild(vid);
+        vid.play().catch(() => {});
+      }
+
+      const text = document.createElement("div");
+      text.classList.add("celebration-text");
+      text.innerHTML = "Thank you for being my Valentine, Jen!<br><br>I love you so much!";
+      celebration.appendChild(text);
+
+      document.body.appendChild(celebration);
+
+      
+      yesButton.style.display = "none";
+
+      
+      setInterval(() => {
+        for (let i = 0; i < 10; i++) {
+          createFallingHeart();
+        }
+      }, 100);
+    }
+
+    function createFallingHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("falling-heart");
+      heart.innerHTML = "❤️";
+      
+      
+      const startX = Math.random() * window.innerWidth;
+      const startY = Math.random() * window.innerHeight;
+      heart.style.left = startX + "px";
+      heart.style.top = startY + "px";
+      
+      
+      const angle = Math.random() * Math.PI * 2;
+      const distance = Math.random() * 300 + 200;
+      const explodeX = Math.cos(angle) * distance + "px";
+      const explodeY = Math.sin(angle) * distance + "px";
+      
+      heart.style.setProperty("--explode-x", explodeX);
+      heart.style.setProperty("--explode-y", explodeY);
+      
+      const delay = Math.random() * 0.5;
+      heart.style.animationDelay = delay + "s";
+      
+      document.body.appendChild(heart);
+      
+      setTimeout(() => heart.remove(), 2500);
+    }
+
+    function createHeart(xPos = null, yPos = null) {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤️";
+      document.body.appendChild(heart);
+
+      heart.style.left = (xPos !== null ? xPos : Math.random() * window.innerWidth) + "px";
+      heart.style.top = (yPos !== null ? yPos : Math.random() * window.innerHeight) + "px";
+      heart.style.fontSize = (Math.random() * 30 + 20) + "px";
+
+      const x = (Math.random() - 0.5) * 600 + "px";
+      const y = (Math.random() - 0.5) * 600 + "px";
+      heart.style.setProperty("--x", x);
+      heart.style.setProperty("--y", y);
+
+      heart.addEventListener("click", () => {
+        for (let i = 0; i < 7; i++) {
+          const offsetX = parseInt(heart.style.left) + (Math.random() - 0.5) * 50;
+          const offsetY = parseInt(heart.style.top) + (Math.random() - 0.5) * 50;
+          createHeart(offsetX, offsetY);
+        }
+      });
+
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    function createPlease() {
+      const word = document.createElement("div");
+      word.classList.add("please");
+      document.body.appendChild(word);
+
+      const letters = "Please".split("");
+      letters.forEach(letter => {
+        const span = document.createElement("span");
+        span.textContent = letter;
+        word.appendChild(span);
+
+        const interval = setInterval(() => {
+          span.style.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
+          span.style.color = colors[Math.floor(Math.random() * colors.length)];
+        }, 200);
+
+        setTimeout(() => clearInterval(interval), 8000);
+      });
+
+      word.style.left = Math.random() * window.innerWidth + "px";
+      word.style.top = Math.random() * window.innerHeight + "px";
+      word.style.fontSize = (Math.random() * 20 + 20) + "px";
+
+      const x = (Math.random() - 0.5) * 400 + "px";
+      const y = (Math.random() - 0.5) * 400 + "px";
+      word.style.setProperty("--x", x);
+      word.style.setProperty("--y", y);
+
+      
+      word.style.cursor = "pointer";
+      word.addEventListener("click", () => {
+        const randomWord = Math.random() < 0.5 ? "Baby" : "Bae";
+        createRandomWord(randomWord, parseInt(word.style.left), parseInt(word.style.top));
+        word.remove();
+      });
+
+      setTimeout(() => word.remove(), 8000);
+    }
+
+    function createRandomWord(wordText, xPos, yPos) {
+      const newWord = document.createElement("div");
+      newWord.classList.add("please");
+      document.body.appendChild(newWord);
+      
+      
+      const letters = wordText.split("");
+      letters.forEach(letter => {
+        const span = document.createElement("span");
+        span.textContent = letter;
+        newWord.appendChild(span);
+
+        const interval = setInterval(() => {
+          span.style.fontFamily = fonts[Math.floor(Math.random() * fonts.length)];
+          span.style.color = colors[Math.floor(Math.random() * colors.length)];
+        }, 200);
+
+        setTimeout(() => clearInterval(interval), 8000);
+      });
+      
+      newWord.style.left = xPos + "px";
+      newWord.style.top = yPos + "px";
+      newWord.style.fontSize = (Math.random() * 20 + 20) + "px";
+      
+      const x = (Math.random() - 0.5) * 400 + "px";
+      const y = (Math.random() - 0.5) * 400 + "px";
+      newWord.style.setProperty("--x", x);
+      newWord.style.setProperty("--y", y);
+      
+      setTimeout(() => newWord.remove(), 8000);
+    }
+
+    setInterval(() => {
+      for (let i = 0; i < 3; i++) createHeart();
+    }, 400);
+
+    setInterval(createPlease, 500);
+  </script>
+</body>
+</html>
